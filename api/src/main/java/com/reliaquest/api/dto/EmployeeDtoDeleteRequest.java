@@ -12,5 +12,4 @@ public class EmployeeDtoDeleteRequest {
 
     @JsonProperty("name")
     private String name;
-
 }

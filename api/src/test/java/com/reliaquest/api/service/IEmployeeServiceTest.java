@@ -1,15 +1,14 @@
 package com.reliaquest.api.service;
 
-import com.reliaquest.api.dto.EmployeeDtoResponse;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import com.reliaquest.api.dto.EmployeeDtoResponse;
+import java.util.List;
+import java.util.UUID;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class IEmployeeServiceTest {
 
@@ -26,8 +25,7 @@ class IEmployeeServiceTest {
     void testFilterEmployeesByNameSearch() {
         List<EmployeeDtoResponse> mockEmployees = List.of(
                 new EmployeeDtoResponse(UUID.randomUUID(), "Alice", 1000, 25, "Dev", "a@a.com"),
-                new EmployeeDtoResponse(UUID.randomUUID(), "Bob", 2000, 30, "QA", "b@b.com")
-        );
+                new EmployeeDtoResponse(UUID.randomUUID(), "Bob", 2000, 30, "QA", "b@b.com"));
 
         when(employeeClient.getAllEmployees()).thenReturn(mockEmployees);
 
@@ -40,8 +38,7 @@ class IEmployeeServiceTest {
     void testGetHighestSalaryOfEmployees() {
         List<EmployeeDtoResponse> mockEmployees = List.of(
                 new EmployeeDtoResponse(UUID.randomUUID(), "Alice", 1000, 25, "Dev", "a@a.com"),
-                new EmployeeDtoResponse(UUID.randomUUID(), "Bob", 5000, 30, "QA", "b@b.com")
-        );
+                new EmployeeDtoResponse(UUID.randomUUID(), "Bob", 5000, 30, "QA", "b@b.com"));
 
         when(employeeClient.getAllEmployees()).thenReturn(mockEmployees);
 
@@ -63,12 +60,11 @@ class IEmployeeServiceTest {
                 new EmployeeDtoResponse(UUID.randomUUID(), "I", 900, 25, "Dev", "i@i.com"),
                 new EmployeeDtoResponse(UUID.randomUUID(), "J", 1000, 25, "Dev", "j@j.com"),
                 new EmployeeDtoResponse(UUID.randomUUID(), "K", 1100, 25, "Dev", "k@k.com"),
-                new EmployeeDtoResponse(UUID.randomUUID(), "L", 1200, 25, "Dev", "l@l.com")
-        );
+                new EmployeeDtoResponse(UUID.randomUUID(), "L", 1200, 25, "Dev", "l@l.com"));
 
         when(employeeClient.getAllEmployees()).thenReturn(mockEmployees);
 
         List<String> topNames = employeeService.getTopTenHighestEarningEmployeeNames();
-        assertEquals(List.of("L","K","J","I","H","G","F","E","D","C"), topNames);
+        assertEquals(List.of("L", "K", "J", "I", "H", "G", "F", "E", "D", "C"), topNames);
     }
 }

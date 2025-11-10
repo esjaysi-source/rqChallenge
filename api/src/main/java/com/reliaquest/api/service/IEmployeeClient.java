@@ -7,12 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reliaquest.api.dto.EmployeeDtoCreateRequest;
 import com.reliaquest.api.dto.EmployeeDtoDeleteRequest;
 import com.reliaquest.api.dto.EmployeeDtoResponse;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.List;
 
 @Service
 @Slf4j
@@ -28,7 +27,8 @@ public class IEmployeeClient {
 
     public List<EmployeeDtoResponse> getAllEmployees() {
         log.info("Retrieving all employee data");
-        String responseBody = webClient.get()
+        String responseBody = webClient
+                .get()
                 .uri("http://localhost:8112/api/v1/employee")
                 .retrieve()
                 .bodyToMono(String.class)
@@ -41,8 +41,7 @@ public class IEmployeeClient {
                 throw new RuntimeException("Expected 'data' array in JSON response, but got: " + root);
             }
 
-            return objectMapper.convertValue(dataNode, new TypeReference<>() {
-            });
+            return objectMapper.convertValue(dataNode, new TypeReference<>() {});
 
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Failed to parse employees JSON", e);
@@ -50,7 +49,8 @@ public class IEmployeeClient {
     }
 
     public EmployeeDtoResponse getEmployeeById(String id) {
-        String responseBody = webClient.get()
+        String responseBody = webClient
+                .get()
                 .uri("http://localhost:8112/api/v1/employee/{id}", id)
                 .retrieve()
                 .bodyToMono(String.class)
@@ -72,7 +72,8 @@ public class IEmployeeClient {
     }
 
     public EmployeeDtoResponse createEmployee(EmployeeDtoCreateRequest input) {
-        String responseBody = webClient.post()
+        String responseBody = webClient
+                .post()
                 .uri("http://localhost:8112/api/v1/employee")
                 .bodyValue(input)
                 .retrieve()
@@ -98,7 +99,8 @@ public class IEmployeeClient {
         EmployeeDtoDeleteRequest input = new EmployeeDtoDeleteRequest();
         input.setName(name);
 
-        String responseBody = webClient.method(HttpMethod.DELETE)
+        String responseBody = webClient
+                .method(HttpMethod.DELETE)
                 .uri("http://localhost:8112/api/v1/employee")
                 .bodyValue(input)
                 .retrieve()
@@ -119,5 +121,4 @@ public class IEmployeeClient {
             throw new RuntimeException("Failed to parse delete employee JSON", e);
         }
     }
-
 }

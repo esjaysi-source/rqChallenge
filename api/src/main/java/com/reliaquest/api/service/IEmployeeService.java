@@ -2,12 +2,11 @@ package com.reliaquest.api.service;
 
 import com.reliaquest.api.dto.EmployeeDtoCreateRequest;
 import com.reliaquest.api.dto.EmployeeDtoResponse;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
@@ -35,7 +34,8 @@ public class IEmployeeService {
         EmployeeDtoResponse employeeDtoResponse = getEmployeeById(id);
         String employeeName = employeeDtoResponse.getEmployeeName();
 
-        //Delete controller suggests ID as input, but server expects name - hence call to get by ID, then delete by name
+        // Delete controller suggests ID as input, but server expects name - hence call to get by ID, then delete by
+        // name
 
         return employeeClient.deleteEmployee(employeeName);
     }
@@ -44,9 +44,9 @@ public class IEmployeeService {
 
         List<EmployeeDtoResponse> allEmployees = getAllEmployees();
 
-        return allEmployees.stream().filter(
-                employee -> employee.getEmployeeName().toLowerCase().contains(searchString.toLowerCase())
-        ).toList();
+        return allEmployees.stream()
+                .filter(employee -> employee.getEmployeeName().toLowerCase().contains(searchString.toLowerCase()))
+                .toList();
     }
 
     public Integer getHighestSalaryOfEmployees() {
@@ -56,7 +56,9 @@ public class IEmployeeService {
         Optional<Integer> highestSalaryOfEmployees = allEmployees.stream()
                 .filter(e -> e.getEmployeeSalary() != null)
                 .max(Comparator.comparing(EmployeeDtoResponse::getEmployeeSalary))
-                .map(EmployeeDtoResponse::getEmployeeSalary).stream().findFirst();
+                .map(EmployeeDtoResponse::getEmployeeSalary)
+                .stream()
+                .findFirst();
 
         if (highestSalaryOfEmployees.isPresent()) {
             return highestSalaryOfEmployees.get();
@@ -72,10 +74,10 @@ public class IEmployeeService {
 
         return allEmployees.stream()
                 .filter(e -> e.getEmployeeSalary() != null)
-                .sorted(Comparator.comparing(EmployeeDtoResponse::getEmployeeSalary).reversed())
+                .sorted(Comparator.comparing(EmployeeDtoResponse::getEmployeeSalary)
+                        .reversed())
                 .limit(10)
                 .map(EmployeeDtoResponse::getEmployeeName)
                 .toList();
     }
-
 }

@@ -3,11 +3,10 @@ package com.reliaquest.api.controller;
 import com.reliaquest.api.dto.EmployeeDtoCreateRequest;
 import com.reliaquest.api.dto.EmployeeDtoResponse;
 import com.reliaquest.api.service.IEmployeeService;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -73,7 +72,6 @@ public class IEmployeeControllerImpl implements IEmployeeController<EmployeeDtoR
 
         return ResponseEntity.ok(employeeDtoResponse);
     }
-
 
     @Override
     public ResponseEntity<String> deleteEmployeeById(String id) {
