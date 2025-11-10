@@ -35,6 +35,8 @@ public class IEmployeeService {
         EmployeeDtoResponse employeeDtoResponse = getEmployeeById(id);
         String employeeName = employeeDtoResponse.getEmployeeName();
 
+        //Delete controller suggests ID as input, but server expects name - hence call to get by ID, then delete by name
+
         return employeeClient.deleteEmployee(employeeName);
     }
 
